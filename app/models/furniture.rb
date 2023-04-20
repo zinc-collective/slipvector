@@ -96,7 +96,8 @@ class Furniture < ApplicationRecord
       marketplace: ::Marketplace::Marketplace,
       livestream: ::Livestream,
       section_navigation: SectionNavigation::SectionNavigation,
-      embedded_form: EmbeddedForm
+      embedded_form: EmbeddedForm,
+      slipvector_surveyors_guild: ::Slipvector::SurveyorsGuild
     }
   end
 

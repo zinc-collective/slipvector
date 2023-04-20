@@ -1,0 +1,7 @@
+<%= render CardComponent.new do %>
+  <h1>Hi!</h1>
+
+  <%= render ButtonComponent.new(label: "Record Star System", href: surveyors_guild.location(child: :star_systems), method: :post, scheme: :primary) %>
+
+  <%= render surveyors_guild.star_systems %>
+<%- end %>
