@@ -40,8 +40,4 @@ class Room < ApplicationRecord
   def entrance?
     space.entrance == self
   end
-
-  def ==(other)
-    super(other.becomes(Room))
-  end
 end

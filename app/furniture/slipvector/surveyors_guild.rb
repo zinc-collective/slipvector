@@ -1,5 +1,6 @@
 class Slipvector
   class SurveyorsGuild < Furniture
+    default_scope { where(furniture_kind: :slipvector_surveyors_guild) }
     extend StripsNamespaceFromModelName
 
     location(parent: :room)

@@ -5,9 +5,9 @@ class Slipvector
         star_system = surveyors_guild.star_systems.new
         authorize(star_system)
         if star_system.save
-          redirect_to(star_system.surveyors_guild.location, notice: "Surveyed Star System!")
+          redirect_to(star_system.surveyors_guild.location, notice: t(".success"))
         else
-          redirect_to(star_system.surveyors_guild.location, error: "Couldn't Survey Star System!")
+          redirect_to(star_system.surveyors_guild.location, error: t(".failure"))
         end
       end
 

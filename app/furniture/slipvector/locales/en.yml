@@ -1,0 +1,7 @@
+en:
+  slipvector:
+    surveyors_guild:
+      star_systems:
+        create:
+          success: "Surveyed Star System!"
+          failure: "Couldn't Survey Star System!"

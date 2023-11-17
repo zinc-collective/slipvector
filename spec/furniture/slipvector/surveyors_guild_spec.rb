@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Slipvector::SurveyorsGuild, type: :model do
   it { is_expected.to have_many(:star_systems).dependent(:destroy).inverse_of(:surveyors_guild) }

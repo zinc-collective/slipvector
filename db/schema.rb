@@ -291,6 +291,28 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_004148) do
     t.index ["space_id"], name: "index_rooms_on_space_id"
   end
 
+  create_table "slipvector_star_systems", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "surveyors_guild_id"
+    t.integer "science_xp", default: 0
+    t.integer "materials_xp", default: 0
+    t.integer "energy_xp", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["surveyors_guild_id"], name: "index_slipvector_star_systems_on_surveyors_guild_id"
+  end
+
+  create_table "slipvector_surveys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "surveyors_guild_id"
+    t.uuid "star_system_id"
+    t.integer "science_xp", default: 0
+    t.integer "materials_xp", default: 0
+    t.integer "energy_xp", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["star_system_id"], name: "index_slipvector_surveys_on_star_system_id"
+    t.index ["surveyors_guild_id"], name: "index_slipvector_surveys_on_surveyors_guild_id"
+  end
+
   create_table "space_agreements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "space_id"
     t.string "name", null: false
@@ -347,6 +369,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_004148) do
   add_foreign_key "marketplace_vendor_representatives", "people"
   add_foreign_key "memberships", "invitations"
   add_foreign_key "rooms", "media", column: "hero_image_id"
+  add_foreign_key "slipvector_star_systems", "furnitures", column: "surveyors_guild_id"
+  add_foreign_key "slipvector_surveys", "furnitures", column: "star_system_id"
+  add_foreign_key "slipvector_surveys", "furnitures", column: "surveyors_guild_id"
   add_foreign_key "space_agreements", "spaces"
   add_foreign_key "spaces", "rooms", column: "entrance_id"
 end
