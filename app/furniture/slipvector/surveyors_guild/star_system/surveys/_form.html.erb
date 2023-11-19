@@ -1,0 +1,21 @@
+<%- data = {} %>
+<%- data[:turbo_frame] = local_assigns[:turbo_frame] if local_assigns[:turbo_frame] %>
+
+<%= turbo_frame_tag(survey) do %>
+  <%= form_with(model: survey.location, data: data) do |f| %>
+    <%= f.hidden_field :status, value: :in_progress %>
+    <%= f.label :biological_dice_count, "BioSensors"%>
+    <%= f.number_field :biological_dice_count %>
+    <%= render "error", attribute: :biological_dice_count, model: survey %>
+
+    <%= f.label :material_dice_count, "MatSensors"%>
+    <%= f.number_field :material_dice_count %>
+    <%= render "error", attribute: :material_dice_count, model: survey %>
+
+    <%= f.label :material_dice_count, "NrgSensors"%>
+    <%= f.number_field :energy_dice_count %>
+    <%= render "error", attribute: :energy_dice_count, model: survey %>
+
+    <%= f.submit "Survey", class: "mt-2" %>
+  <%- end %>
+<%- end %>

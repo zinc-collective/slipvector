@@ -1,0 +1,11 @@
+<div class="<%= local_assigns[:class] %> grid grid-cols-5 gap-2">
+  <div><%= header %></div>
+  <div>
+    <%- dice.each do |die| %>
+      <%= die.value %>
+    <%- end %>
+  </div>
+  <div class="text-right"><%= dice.base_score %></div>
+  <div>* <%= dice.set_bonus %></div>
+  <div class="text-right"><%= dice.score %></div>
+</div>

@@ -30,6 +30,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_004148) do
     "revoked",
   ], force: :cascade
 
+  create_enum :slipvector_survey_status, [
+    "preparing",
+    "active",
+    "complete",
+  ], force: :cascade
+
   create_table "action_text_rich_texts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -87,7 +93,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_004148) do
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
     t.string "scope"
-    t.datetime "created_at", precision: nil
+    t.datetime "created_at"
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
@@ -274,7 +280,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_004148) do
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "operator", default: false
+    t.boolean "operator", default: false, null: false
     t.index ["email"], name: "index_people_on_email", unique: true
   end
 
@@ -293,24 +299,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_004148) do
 
   create_table "slipvector_star_systems", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "surveyors_guild_id"
-    t.integer "science_xp", default: 0
-    t.integer "materials_xp", default: 0
-    t.integer "energy_xp", default: 0
+    t.string "name"
+    t.jsonb "experience"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["surveyors_guild_id"], name: "index_slipvector_star_systems_on_surveyors_guild_id"
   end
 
   create_table "slipvector_surveys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "surveyors_guild_id"
     t.uuid "star_system_id"
-    t.integer "science_xp", default: 0
-    t.integer "materials_xp", default: 0
-    t.integer "energy_xp", default: 0
+    t.enum "status", default: "preparing", null: false, enum_type: "slipvector_survey_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["star_system_id"], name: "index_slipvector_surveys_on_star_system_id"
-    t.index ["surveyors_guild_id"], name: "index_slipvector_surveys_on_surveyors_guild_id"
   end
 
   create_table "space_agreements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -370,8 +371,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_004148) do
   add_foreign_key "memberships", "invitations"
   add_foreign_key "rooms", "media", column: "hero_image_id"
   add_foreign_key "slipvector_star_systems", "furnitures", column: "surveyors_guild_id"
-  add_foreign_key "slipvector_surveys", "furnitures", column: "star_system_id"
-  add_foreign_key "slipvector_surveys", "furnitures", column: "surveyors_guild_id"
+  add_foreign_key "slipvector_surveys", "slipvector_star_systems", column: "star_system_id"
   add_foreign_key "space_agreements", "spaces"
   add_foreign_key "spaces", "rooms", column: "entrance_id"
 end

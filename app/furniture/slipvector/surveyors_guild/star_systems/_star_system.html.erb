@@ -1,0 +1,25 @@
+<%= render CardComponent.new do %>
+  <%= turbo_frame_tag(star_system) do %>
+    <h2><%= star_system.id %></h2>
+    <dl class="grid grid-cols-6 gap-2 divide-y">
+      <%- [ { label: "BioData", value: star_system.biological_data, classes: "text-green-700" },
+            { label: "MatData", value: star_system.material_data, classes: "text-slate-700"},
+            { label: "NrgData", value: star_system.energy_data, classes: "text-yellow-700"}].each do |datum| %>
+        <dt class="<%= datum[:classes] %>"><%= datum[:label]%></dt>
+        <dd class="<%= datum[:classes] %>"%><%=datum[:value] %></dd>
+      <%- end %>
+    </dl>
+
+    <%- if star_system.surveys.in_progress.blank? %>
+      <div class="py-2">
+        <%= render "slipvector/surveyors_guild/star_system/surveys/form", survey: star_system.surveys.new, turbo_frame: dom_id(star_system) %>
+      </div>
+
+      <div class="divide-y-2 divide-dotted grid grid-cols-1 gap-2">
+        <%= render star_system.surveys.order(created_at: :desc) %>
+      </div>
+    <%- else %>
+      <%= render star_system.surveys.in_progress %>
+    <%- end %>
+  <%- end %>
+<%- end %>

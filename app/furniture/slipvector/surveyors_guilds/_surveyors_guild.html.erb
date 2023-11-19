@@ -1,7 +1,13 @@
-<%= render CardComponent.new do %>
-  <h1>Hi!</h1>
 
-  <%= render ButtonComponent.new(label: "Record Star System", href: surveyors_guild.location(child: :star_systems), method: :post, scheme: :primary) %>
+<%= turbo_frame_tag(surveyors_guild) do %>
+  <div class="grid grid-cols-1 gap-2 divide-y">
+    <%= render surveyors_guild.star_systems %>
+  </div>
 
-  <%= render surveyors_guild.star_systems %>
+  <%= render CardComponent.new do %>
+    <%= turbo_frame_tag(surveyors_guild.star_systems.new) do %>
+      <%= link_to("Request Star System",
+          surveyors_guild.location(:new, child: :star_system)) %>
+    <%- end %>
+  <%- end %>
 <%- end %>

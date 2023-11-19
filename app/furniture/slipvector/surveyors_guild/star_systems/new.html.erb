@@ -1,0 +1,7 @@
+<%= render CardComponent.new do %>
+  <%= turbo_frame_tag(star_system) do %>
+    <%= form_with model: star_system.location, data: { turbo_frame: dom_id(star_system.surveyors_guild) }  do |f| %>
+      <%= f.submit("Pull Star System Lottery") %>
+    <%-end%>
+  <%- end %>
+<%- end %>

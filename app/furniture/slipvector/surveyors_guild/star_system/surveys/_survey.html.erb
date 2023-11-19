@@ -1,0 +1,57 @@
+  <%= render CardComponent.new do %>
+  <%= turbo_frame_tag(survey) do %>
+    <h3>
+      <%=link_to(survey.id, survey.location(query_params: { all_rolls: params["all_rolls"] == "true" ? false : true }))%>
+    </h3>
+    <%- if survey.complete? %>
+      <%- if params["all_rolls"] != "true" %>
+        <div>
+          <%= render survey.rolls.includes(:survey).by_turn.last %>
+        </div>
+      <%- else %>
+        <div class="divide-y divide-dashed">
+          <%= render survey.rolls.includes(:preceding_roll, :survey).by_turn.reverse %>
+        </div>
+      <%- end %>
+    <%- else %>
+      <div class="p-2" >
+        <%- new_roll = survey.next_roll %>
+        <%= form_with(model: new_roll.location) do |f| %>
+          <div class="flex text-green-700">
+            <%= f.collection_check_boxes :biological_dice_kept, new_roll.biological_dice, :index, :value, {}, {autocomplete: :off} do |b| %>
+              <%= b.label(class: "text-center padding-5") do %>
+                <%= b.check_box %><br />
+                <%= b.text %>
+              <%- end %>
+            <%- end %>
+          </div>
+          <div class="flex text-slate-700">
+            <%= f.collection_check_boxes :material_dice_kept, new_roll.material_dice, :index, :value, {}, {autocomplete: :off} do |b| %>
+              <%= b.label(class: "text-center padding-5") do %>
+                <%= b.check_box %><br />
+                <%= b.text %>
+              <%- end %>
+            <%- end %>
+          </div>
+          <div class="flex text-yellow-500">
+            <%= f.collection_check_boxes :energy_dice_kept, new_roll.energy_dice, :index, :value, {}, {autocomplete: :off} do |b| %>
+              <%= b.label(class: "text-center padding-5") do %>
+                <%= b.check_box %><br />
+                <%= b.text %>
+              <%- end %>
+            <%- end %>
+          </div>
+          <%= f.submit "Roll" %>
+        <%- end %>
+
+        <div class="py-3">
+          <%= button_to "Finish Survey", survey.location, method: :put, params: { survey: { status: :complete } }, data: { turbo_frame: dom_id(survey.star_system)}, class: "w-full" %>
+        </div>
+      </div>
+
+      <div class="divide-y divide-dashed">
+        <%= render survey.rolls.includes(:preceding_roll, :survey).by_turn.reverse %>
+      </div>
+    <%-end %>
+  <%- end %>
+<%- end %>

@@ -1,8 +1,14 @@
 class Slipvector
   class SurveyorsGuild
     class StarSystemsController < ApplicationController
+      expose :surveyors_guild, model: SurveyorsGuild
+      expose :star_system, scope: -> { surveyors_guild.star_systems }, model: StarSystem
+
+      def new
+        authorize(star_system)
+      end
+
       def create
-        star_system = surveyors_guild.star_systems.new
         authorize(star_system)
         if star_system.save
           redirect_to(star_system.surveyors_guild.location, notice: t(".success"))
@@ -11,8 +17,8 @@ class Slipvector
         end
       end
 
-      def surveyors_guild
-        SurveyorsGuild.find(params[:surveyors_guild_id])
+      def show
+        authorize(star_system)
       end
     end
   end
