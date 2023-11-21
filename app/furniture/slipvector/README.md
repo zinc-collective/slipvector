@@ -11,10 +11,10 @@ _A Series of Games and Stories set in a Post-Scarcity Solarpunk Future_
 - [Codex](#codex)
   - [Slip](#slip)
   - [Star Systems](#star-systems)
-  - [E.L.M.O. (Energy, Life, Materials, Oddities)](#elmo-energy-life-materials-oddities)
+  - [E.L.M.O. (Energy, Life, Material, Oddity)](#elmo-energy-life-material-oddity)
 
 ## Games
-- [ ] 🌱 [Ping](./ping/README.md) - Scan a Star System, gathering data on it's [E.L.M.O.](#elmo-energy-life-materials-oddities) potential.
+- [ ] 🌱 [Ping](./ping/README.md) - Scan a Star System, gathering data on it's [E.L.M.O.](#elmo-energy-life-materials-oddity) potential.
 - [ ] 🌫️ Expeditions -
 
 ## Tools
@@ -55,18 +55,18 @@ Binds [Star Systems](#star-systems) together. By spending considerable [Energy](
 
 ### Star Systems
 
-### E.L.M.O. (Energy, Life, Materials, Oddities)
+### E.L.M.O. (Energy, Life, Material, Oddity)
 
 Every [Star System](#star-systems) in Slipvector has Potential and Kinetic ELMO
 
 - [Energy](#energy)
 - [Matter](#matter)
 - [Life](#life)
-- [Oddities](#oddities)
+- [Oddity](#oddity)
 
 #### Energy
 #### Matter
 
 #### Life
 
-#### Oddities
+#### Oddity

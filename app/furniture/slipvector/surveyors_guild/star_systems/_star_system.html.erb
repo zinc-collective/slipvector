@@ -1,10 +1,11 @@
 <%= render CardComponent.new do %>
   <%= turbo_frame_tag(star_system) do %>
     <h2><%= star_system.id %></h2>
-    <dl class="grid grid-cols-6 gap-2 divide-y">
-      <%- [ { label: "BioData", value: star_system.biological_data, classes: "text-green-700" },
-            { label: "MatData", value: star_system.material_data, classes: "text-slate-700"},
-            { label: "NrgData", value: star_system.energy_data, classes: "text-yellow-700"}].each do |datum| %>
+    <dl class="grid grid-cols-4 gap-2">
+      <%- [ { label: "EnrgData", value: star_system.energy_data, classes: "text-yellow-700"},
+            { label: "LifeData", value: star_system.life_data, classes: "text-green-700" },
+            { label: "MatrData", value: star_system.material_data, classes: "text-slate-700"},
+            { label: "OddyData", value: star_system.oddity_data, classes: "text-purple-700"}].each do |datum| %>
         <dt class="<%= datum[:classes] %>"><%= datum[:label]%></dt>
         <dd class="<%= datum[:classes] %>"%><%=datum[:value] %></dd>
       <%- end %>

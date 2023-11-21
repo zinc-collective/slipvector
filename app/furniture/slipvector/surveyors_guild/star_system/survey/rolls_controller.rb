@@ -15,8 +15,8 @@ class Slipvector
 
       def roll_params
         params.require(:roll)
-          .permit(energy_dice_kept: [], material_dice_kept: [], biological_dice_kept: []).tap do |result|
-            ["energy_dice_kept", "material_dice_kept", "biological_dice_kept"].each do |attribute|
+          .permit(energy_dice_kept: [], life_dice_kept: [], material_dice_kept: [], oddity_dice_kept: []).tap do |result|
+            ["energy_dice_kept", "life_dice_kept", "material_dice_kept", "oddity_dice_kept"].each do |attribute|
               result[attribute].compact_blank!.map!(&:to_i)
             end
           end

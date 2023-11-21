@@ -17,8 +17,16 @@
       <div class="p-2" >
         <%- new_roll = survey.next_roll %>
         <%= form_with(model: new_roll.location) do |f| %>
+          <div class="flex text-yellow-500">
+            <%= f.collection_check_boxes :energy_dice_kept, new_roll.energy_dice, :index, :value, {}, {autocomplete: :off} do |b| %>
+              <%= b.label(class: "text-center padding-5") do %>
+                <%= b.check_box %><br />
+                <%= b.text %>
+              <%- end %>
+            <%- end %>
+          </div>
           <div class="flex text-green-700">
-            <%= f.collection_check_boxes :biological_dice_kept, new_roll.biological_dice, :index, :value, {}, {autocomplete: :off} do |b| %>
+            <%= f.collection_check_boxes :life_dice_kept, new_roll.life_dice, :index, :value, {}, {autocomplete: :off} do |b| %>
               <%= b.label(class: "text-center padding-5") do %>
                 <%= b.check_box %><br />
                 <%= b.text %>
@@ -33,14 +41,16 @@
               <%- end %>
             <%- end %>
           </div>
-          <div class="flex text-yellow-500">
-            <%= f.collection_check_boxes :energy_dice_kept, new_roll.energy_dice, :index, :value, {}, {autocomplete: :off} do |b| %>
+
+          <div class="flex text-purple-700">
+            <%= f.collection_check_boxes :oddity_dice_kept, new_roll.oddity_dice, :index, :value, {}, {autocomplete: :off} do |b| %>
               <%= b.label(class: "text-center padding-5") do %>
                 <%= b.check_box %><br />
                 <%= b.text %>
               <%- end %>
             <%- end %>
           </div>
+
           <%= f.submit "Roll" %>
         <%- end %>
 

@@ -8,16 +8,20 @@ class Slipvector
 
       has_many :surveys, inverse_of: :star_system, dependent: :destroy
 
-      def biological_data
-        surveys.complete.sum(:biological_data)
+      def energy_data
+        surveys.complete.sum(:energy_data)
+      end
+
+      def life_data
+        surveys.complete.sum(:life_data)
       end
 
       def material_data
         surveys.complete.sum(:material_data)
       end
 
-      def energy_data
-        surveys.complete.sum(:energy_data)
+      def oddity_data
+        surveys.complete.sum(:oddity_data)
       end
     end
   end

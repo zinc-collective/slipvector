@@ -29,7 +29,7 @@ class Slipvector
       end
 
       def survey_params
-        params.require(:survey).permit(:biological_dice_count, :material_dice_count, :energy_dice_count, :status)
+        params.require(:survey).permit(:energy_dice_count, :life_dice_count, :material_dice_count, :oddity_dice_count, :status)
       end
     end
   end
