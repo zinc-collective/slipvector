@@ -1,7 +1,5 @@
 class Slipvector
-  class SurveyorsGuildsController < ApplicationController
-    expose :surveyors_guild, model: SurveyorsGuild
-
+  class SurveyorsGuildsController < Controller
     def show
       authorize(surveyors_guild)
     end

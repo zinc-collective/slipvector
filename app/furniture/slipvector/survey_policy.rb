@@ -1,5 +1,5 @@
 class Slipvector
-  class SurveyorsGuild::StarSystem::SurveyPolicy < ApplicationPolicy
+  class SurveyPolicy < ApplicationPolicy
     alias_method :survey, :object
 
     def create?

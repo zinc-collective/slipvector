@@ -1,13 +1,20 @@
-
-<%= turbo_frame_tag(surveyors_guild) do %>
-  <div class="grid grid-cols-1 gap-2 divide-y">
-    <%= render surveyors_guild.star_systems %>
+<div class="flex flex-col gap-y-3">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-5">
+    <%- @pagy, @star_systems = pagy(policy_scope(surveyors_guild.star_systems), items: 4) %>
+    <%- surveyors_guild.star_systems.each do |star_system| %>
+      <%= render CardComponent.new do |card| %>
+        <%- card.with_header do %>
+          <h2><%= link_to(star_system.name, star_system.location) %></h2>
+        <%- end %>
+      <%- end %>
+    <%- end %>
   </div>
 
-  <%= render CardComponent.new do %>
-    <%= turbo_frame_tag(surveyors_guild.star_systems.new) do %>
-      <%= link_to("Request Star System",
-          surveyors_guild.location(:new, child: :star_system)) %>
+  <%- if surveyors_guild.star_system_tickets&.positive? || surveyors_guild.star_systems.count < 2  %>
+    <%= render CardComponent.new do %>
+      <%= form_with model: surveyors_guild.star_systems.new.location do |f| %>
+        <%= f.submit("Pull Star System Lottery", class: "w-full") %>
+      <%-end%>
     <%- end %>
   <%- end %>
-<%- end %>
+</div>

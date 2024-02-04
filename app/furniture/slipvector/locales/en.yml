@@ -1,17 +1,11 @@
 en:
   slipvector:
-    surveyors_guild:
-      star_systems:
-        create:
-          success: "Registered Star System!"
-          failure: "Couldn't Register Star System!"
-      star_system:
-        surveys:
-          create:
-            success: "Launched a Survey in Star System"
-            failure: "Couldn't Survey Star System"
-        survey:
-          rolls:
-            create:
-              success: "Experiment Complete!"
-              failure: "Experiment Failed!"
+
+    star_systems:
+      create:
+        success: "Registered Star System!"
+        failure: "Couldn't Register Star System!"
+    surveys:
+      create:
+        success: "Launched a Survey in Star System"
+        failure: "Couldn't Survey Star System"

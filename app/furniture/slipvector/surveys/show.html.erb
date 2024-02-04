@@ -1,0 +1,16 @@
+<%- breadcrumb :slipvector_survey, survey %>
+<div class="my-4">
+  <%= link_to("⬅️ Back to #{star_system.name}", survey.star_system.location) %>
+</div>
+<%= render CardComponent.new do |card| %>
+  <%- card.with_header do %>
+    <h2><%= survey.id %></h2>
+    <p class="text-sm">Surveying <%= survey.star_system.name %></p>
+  <%- end %>
+
+  <%- card.with_footer(variant: :action_bar) do %>
+    <%- if survey.active? %>
+      <%= button_to("Complete Survey", survey.location, form_class: "w-full", class: "w-full", params: { survey: { status: :complete } })%>
+    <%- end %>
+  <%- end %>
+<%- end %>

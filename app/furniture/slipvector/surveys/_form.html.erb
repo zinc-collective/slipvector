@@ -1,0 +1,5 @@
+<%= form_with(model: survey.location) do |f| %>
+  <%= f.hidden_field :status, value: :in_progress %>
+
+  <%= f.submit "Survey", class: "w-full" %>
+<%- end %>
