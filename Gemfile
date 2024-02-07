@@ -68,6 +68,9 @@ gem "strong_migrations", "~> 1.7"
 # Soft Deletion
 gem "discard", "~> 1.2"
 
+# JSON models
+gem "store_model"
+
 # ActiveModel extension to remove extra whitespace from attributes
 gem "strip_attributes", "~> 1.13"
 

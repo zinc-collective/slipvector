@@ -5,7 +5,7 @@ class Slipvector
     belongs_to :surveyors_guild, inverse_of: :star_systems
     location(parent: :surveyors_guild)
 
-    attribute :data_levels, DataLevelType.new
+    attribute :experience, Experience.to_type, default: -> { Experience.new }
 
     has_many :surveys, inverse_of: :star_system, dependent: :destroy
     has_many :active_surveys, -> { active }, class_name: :Survey

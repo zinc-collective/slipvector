@@ -8,6 +8,14 @@
     <p class="text-sm">Surveying <%= survey.star_system.name %></p>
   <%- end %>
 
+  <p>Gathered...
+  <ul>
+  <%- survey.results.each do |result| %>
+    <li><%= result.xp %> <%= result.label %></li>
+  <%- end %>
+  </ul>
+
+
   <%- card.with_footer(variant: :action_bar) do %>
     <%- if survey.active? %>
       <%= button_to("Complete Survey", survey.location, form_class: "w-full", class: "w-full", params: { survey: { status: :complete } })%>

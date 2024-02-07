@@ -4,7 +4,14 @@ class Slipvector
     include ActiveModel::Attributes
     include ActiveModel::Validations
 
-    attribute :observes, :string
-    validates :observes, inclusion: {in: [:energy, :life, :materials, :oddities]}
+    attribute :elmo, :string
+    validates :elmo, inclusion: {in: [:energy, :life, :materials, :oddities]}
+
+    attribute :xp, :integer
+    validates :xp, numericality: true
+
+    def label
+      ELMOS.fetch(elmo.to_sym)
+    end
   end
 end

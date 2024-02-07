@@ -59,14 +59,14 @@ Binds [Star Systems](#star-systems) together. By spending considerable [Energy](
 
 Every [Star System](#star-systems) in Slipvector has Potential and Kinetic ELMO
 
-- [Energy](#energy)
-- [Matter](#matter)
-- [Life](#life)
-- [Oddity](#oddity)
+- [⚡️ Energy](#energy)
+- [⚛️ Matter](#matter)
+- [🧬 Life](#life)
+- [⁉️ Oddity](#oddity)
 
-#### Energy
-#### Matter
+#### ⚡️ Energy
+#### ⚛️ Matter
 
-#### Life
+#### 🧬 Life
 
-#### Oddity
+#### ⁉️ Oddity

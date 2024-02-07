@@ -1,12 +1,29 @@
 <%= render CardComponent.new do |card| %>
   <%- card.with_header do %>
     <h2><%= star_system.name %></h2>
+
+    <div class="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <%- star_system.experience.pools.each do |pool| %>
+        <div class="flex flex-wrap justify-between">
+          <span><%= pool.label %></span>
+          <span>
+            <%= pool.xp %> of <%= pool.next_level_xp %>
+          </span>
+          <%- if pool.ready_for_level_up? %>
+            <%= link_to("⬆️ Level Up!", "#", class: "w-full text-center p-2 rounded bg-yellow-100 no-underline border-yellow-500") %>
+          <%- end %>
+        </div>
+      <%- end %>
+    </div>
+
   <%- end %>
 
   <%- @pagy, @surveys = pagy(policy_scope(star_system.surveys.complete.recent), items: 8) %>
 
-  <div class="grid sm:grid-cols-2">
-    <%= render @surveys %>
+  <div class="grid gap-3 grid-cols-2 sm:grid-cols-4">
+    <%- @surveys.each do |survey| %>
+      <%= link_to(survey.name, survey.location) %>
+    <%- end %>
   </div>
 
   <%== pagy_nav(@pagy, nav_extra: 'flex justify-between') %>
