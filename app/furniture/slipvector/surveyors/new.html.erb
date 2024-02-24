@@ -1,0 +1,23 @@
+<%- breadcrumb :new_slipvector_surveyor, surveyors_guild %>
+<%= render CardComponent.new do |card| %>
+  <p>Of course! No reason to wait!</p>
+  <p>Let's pair your device to our network...</p>
+  <p>Excellent! Now for your membership application...</p>
+  <p>We'll print you an ID, and from there you can represent us on Surveys!</p>
+<%- end %>
+
+<%= form_with(model: surveyor.location) do |surveyor_form| %>
+  <%= render CardComponent.new do |card| %>
+    <%- card.with_header do %>
+      <h3>Surveyors License Application</h3>
+    <%- end %>
+
+    <%= surveyor_form.text_field :name,
+      hint: "How would you like to be adressed in our Surveyors Guild?" %>
+
+    <%- card.with_footer do %>
+      <a class="button" href="#">Wait... that's... it?</a>
+      <%= surveyor_form.submit "Apply for Surveyors License", class: "--primary" %>
+    <%- end %>
+  <%- end %>
+<%- end %>

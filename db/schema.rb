@@ -306,9 +306,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_004148) do
     t.index ["surveyors_guild_id"], name: "index_slipvector_star_systems_on_surveyors_guild_id"
   end
 
+  create_table "slipvector_surveyors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "surveyors_guild_id"
+    t.uuid "person_id"
+    t.string "name", null: false
+    t.string "pronouns"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id"], name: "index_slipvector_surveyors_on_person_id"
+    t.index ["surveyors_guild_id"], name: "index_slipvector_surveyors_on_surveyors_guild_id"
+  end
+
   create_table "slipvector_surveys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "star_system_id"
-    t.enum "status", default: "preparing", null: false, enum_type: "slipvector_survey_status"
+    t.string "status", default: "preparing", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["star_system_id"], name: "index_slipvector_surveys_on_star_system_id"
@@ -371,6 +382,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_004148) do
   add_foreign_key "memberships", "invitations"
   add_foreign_key "rooms", "media", column: "hero_image_id"
   add_foreign_key "slipvector_star_systems", "furnitures", column: "surveyors_guild_id"
+  add_foreign_key "slipvector_surveyors", "furnitures", column: "surveyors_guild_id"
   add_foreign_key "slipvector_surveys", "slipvector_star_systems", column: "star_system_id"
   add_foreign_key "space_agreements", "spaces"
   add_foreign_key "spaces", "rooms", column: "entrance_id"

@@ -1,4 +1,5 @@
-<div class="flex flex-col gap-y-3">
+<%- if current_surveyor.present?%>
+  <%= render current_surveyor %>
   <h2>Authorized Star Systems</h2>
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-5">
     <%- @pagy, @star_systems = pagy(policy_scope(surveyors_guild.star_systems), items: 4) %>
@@ -18,4 +19,23 @@
       <%-end%>
     <%- end %>
   <%- end %>
-</div>
+<%- else %>
+  <%= render CardComponent.new do |card| %>
+    <p>Oh... Hello! We weren't expecting visitors so soon!</p>
+    <p>Ahem! Welcome to our newly opened Surveyors Guild!<p>
+    <p>Together, we slip across the stars, gathering data.</p>
+    <p>We hope to find star systems safe for us to live in...</p>
+    <p>And maybe even meet new species!</p>
+    <p>How can I help you?</p>
+
+    <%- card.with_footer(variant: :action_bar) do %>
+      <!--
+        <a href="<%= href_for(surveyors_guild, child: :star_systems) %>"
+          class="button --secondary w-1/2">Just looking, thanks!</span>
+      -->
+
+      <a href="<%= href_for(surveyors_guild, action: :new, child: :surveyor) %>"
+        class="button w-full">I'd like to join the guild!</a>
+    <%- end %>
+  <%- end %>
+<%- end %>

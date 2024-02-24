@@ -18,7 +18,7 @@ class CardComponent < ApplicationComponent
   DEFAULT_FOOTER = "bg-slate-50 p-2 sm:p-4"
   FOOTER_VARIANTS = {
     default: DEFAULT_FOOTER,
-    action_bar: [DEFAULT_FOOTER, "flex flex-row justify-between"].join(" ")
+    action_bar: [DEFAULT_FOOTER, "flex flex-row gap-3 justify-between"].join(" ")
   }
   renders_one :footer, ->(variant: :default, &block) {
     classes = FOOTER_VARIANTS.fetch(variant)

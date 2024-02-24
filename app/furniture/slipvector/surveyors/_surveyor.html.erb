@@ -1,0 +1,24 @@
+<div class="w-80 mx-auto">
+  <%= render CardComponent.new do |card| %>
+    <%- card.with_header do %>
+      <h3>Level 1 Surveyor</h3>
+    <%- end %>
+
+    <dl class="grid grid-cols-4 gap-x-6">
+      <dt class="text-right">Name: </dt>
+      <dd class="col-span-3"><%= surveyor.name %></dd>
+      <dt class="text-right">Id: </dt>
+      <dd class="col-span-3"><%= surveyor.id %></dd>
+    </dl>
+  <%- end %>
+</div>
+
+<%= render CardComponent.new do |card| %>
+  <%- card.with_header do %>
+    <h3>Surveys</h3>
+  <%- end %>
+
+  <%- card.with_footer(variant: :action_bar) do %>
+    <a class="button w-full" href="<%= href_for surveyor, action: :new, child: :survey %>">New Survey</a>
+  <%- end %>
+<%- end %>

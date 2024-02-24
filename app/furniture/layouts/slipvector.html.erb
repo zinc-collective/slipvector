@@ -1,6 +1,9 @@
 <%- content_for :content do %>
   <%= turbo_frame_tag(surveyors_guild, data: { turbo_action: :advance }) do %>
-    <%= yield  %>
+    <%= render "flash_messages" %>
+    <div class="grid gap-y-3 mx-2">
+      <%= yield  %>
+    </div>
   <%- end %>
 <%- end %>
 

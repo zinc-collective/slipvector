@@ -3,7 +3,7 @@ class Slipvector
     alias_method :surveyors_guild, :object
 
     def show?
-      person&.operator? || person&.member_of?(surveyors_guild.space)
+      true
     end
 
     class Scope < ApplicationScope
