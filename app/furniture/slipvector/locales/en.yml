@@ -9,3 +9,6 @@ en:
       create:
         success: "Launched a Survey in Star System"
         failure: "Couldn't Survey Star System"
+    surveyors:
+      create:
+        success: "Your Surveyors License has been granted!"

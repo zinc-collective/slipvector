@@ -4,5 +4,8 @@ class Slipvector
 
     belongs_to :surveyors_guild, inverse_of: :surveyors
     location(parent: :surveyors_guild)
+
+    has_many :crewmates, dependent: :destroy
+    has_many :surveys, through: :crewmates
   end
 end

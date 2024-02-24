@@ -3,7 +3,7 @@ class Slipvector
     alias_method :survey, :object
 
     def create?
-      person&.operator? || person&.member_of?(survey.star_system.surveyors_guild.space)
+      person&.operator? || survey.surveyors.include?(current_person.surveyor)
     end
 
     alias_method :update?, :create?

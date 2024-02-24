@@ -1,24 +1,9 @@
 <%- if current_surveyor.present?%>
   <%= render current_surveyor %>
-  <h2>Authorized Star Systems</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-5">
-    <%- @pagy, @star_systems = pagy(policy_scope(surveyors_guild.star_systems), items: 4) %>
-    <%- surveyors_guild.star_systems.each do |star_system| %>
-      <%= render CardComponent.new do |card| %>
-        <%- card.with_header do %>
-          <h2><%= link_to(star_system.name, star_system.location) %></h2>
-        <%- end %>
-      <%- end %>
-    <%- end %>
+  <div>
+    <h3>Star Systems</h3>
+    <%= render surveyors_guild.star_systems %>
   </div>
-
-  <%- if surveyors_guild.star_system_tickets&.positive? || surveyors_guild.star_systems.count < 2  %>
-    <%= render CardComponent.new do %>
-      <%= form_with model: surveyors_guild.star_systems.new.location do |f| %>
-        <%= f.submit("Pull Star System Lottery", class: "w-full") %>
-      <%-end%>
-    <%- end %>
-  <%- end %>
 <%- else %>
   <%= render CardComponent.new do |card| %>
     <p>Oh... Hello! We weren't expecting visitors so soon!</p>
@@ -30,11 +15,11 @@
 
     <%- card.with_footer(variant: :action_bar) do %>
       <!--
-        <a href="<%= href_for(surveyors_guild, child: :star_systems) %>"
+        <a href="<%= href_to(surveyors_guild, child: :star_systems) %>"
           class="button --secondary w-1/2">Just looking, thanks!</span>
       -->
 
-      <a href="<%= href_for(surveyors_guild, action: :new, child: :surveyor) %>"
+      <a href="<%= href_to(surveyors_guild, action: :new, child: :surveyor) %>"
         class="button w-full">I'd like to join the guild!</a>
     <%- end %>
   <%- end %>

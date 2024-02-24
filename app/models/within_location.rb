@@ -36,13 +36,14 @@ module WithinLocation
     if self.class.location_parent
       send(self.class.location_parent)
     else
-      raise MissingLocationParentError, self.class
+      raise MissingResourceParentDefinition, self.class
     end
   end
 
   delegate :routed_as, to: :class
 
   def parent_location(*, **)
+    raise MissingResourceParentError, self if location_parent.nil?
     location_parent.location(*, **)
   end
 
@@ -70,9 +71,15 @@ module WithinLocation
     end
   end
 
-  class MissingLocationParentError < StandardError
+  class MissingResourceParentDefinition < StandardError
     def initialize(model)
       super("Missing value for `#{model}.location_parent`. Got `#{model.location_parent}`.")
+    end
+  end
+
+  class MissingResourceParentError < StandardError
+    def initialize(resource)
+      super("`#{resource}.#{resource.class.location_parent}` was `#{resource.location_parent}`.")
     end
   end
 end

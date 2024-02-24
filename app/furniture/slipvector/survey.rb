@@ -3,10 +3,21 @@ class Slipvector
     self.table_name = "slipvector_surveys"
 
     belongs_to :star_system, inverse_of: :surveys
-    location(parent: :star_system)
-    has_one :surveyors_guild, through: :star_system
+    belongs_to :surveyors_guild, inverse_of: :surveys
+    location(parent: :surveyors_guild)
+
+    has_many :crewmates
+    has_many :surveyors, through: :crewmates
 
     scope :recent, -> { order(updated_at: :desc) }
+
+    scope :seeking_crew, -> { left_outer_joins(:crewmates).preparing.having("count(survey_id) < maximum_crewmates").group("survey_id, slipvector_surveys.id") }
+
+    enum status: {
+      preparing: "preparing",
+      active: "active",
+      complete: "complete"
+    }
 
     after_commit :update_star_system
 
@@ -32,10 +43,6 @@ class Slipvector
       end
     end
 
-    enum status: {
-      preparing: "preparing",
-      active: "active",
-      complete: "complete"
-    }
+
   end
 end

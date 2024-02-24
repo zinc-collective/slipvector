@@ -5,8 +5,8 @@ class Slipvector
 
     expose :surveyors_guild, model: SurveyorsGuild
 
-    helper_method def href_for(resource, action: :show, child: nil, query_params: nil)
-      polymorphic_path(resource.location(action, child:, query_params:))
+    helper_method def href_to(resource, action: :show, child: nil, query_params: nil)
+      polymorphic_path(resource.location(action, child:), params: query_params)
     end
 
     def pundit_user

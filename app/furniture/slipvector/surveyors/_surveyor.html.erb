@@ -13,12 +13,22 @@
   <%- end %>
 </div>
 
-<%= render CardComponent.new do |card| %>
-  <%- card.with_header do %>
-    <h3>Surveys</h3>
-  <%- end %>
+<h3>Surveys Seeking Crew</h3>
+<%- surveyors_guild.surveys_seeking_crew.includes(:star_system).each do |survey| %>
+  <%= render CardComponent.new do |card| %>
+    <%- card.with_header do %>
+      <h4><%= survey.id%></h4>
+    <%- end %>
+      <p>Traveling to <%= survey.star_system.name %></p>
 
-  <%- card.with_footer(variant: :action_bar) do %>
-    <a class="button w-full" href="<%= href_for surveyor, action: :new, child: :survey %>">New Survey</a>
+    <%- card.with_footer(variant: :action_bar) do %>
+      <a
+        class="button w-full"
+        href="<%= href_to(survey, action: :new, child: :crewmate) %>">
+        Inquire
+      </a>
+
+
+    <%- end %>
   <%- end %>
 <%- end %>

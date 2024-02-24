@@ -297,6 +297,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_004148) do
     t.index ["space_id"], name: "index_rooms_on_space_id"
   end
 
+  create_table "slipvector_crewmates", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "surveyor_id"
+    t.uuid "survey_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["survey_id"], name: "index_slipvector_crewmates_on_survey_id"
+    t.index ["surveyor_id"], name: "index_slipvector_crewmates_on_surveyor_id"
+  end
+
   create_table "slipvector_star_systems", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "surveyors_guild_id"
     t.string "name"
@@ -319,10 +328,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_004148) do
 
   create_table "slipvector_surveys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "star_system_id"
+    t.uuid "surveyors_guild_id"
+    t.integer "maximum_crewmates", default: 1, null: false
     t.string "status", default: "preparing", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["star_system_id"], name: "index_slipvector_surveys_on_star_system_id"
+    t.index ["surveyors_guild_id", "status"], name: "index_slipvector_surveys_on_surveyors_guild_id_and_status"
+    t.index ["surveyors_guild_id"], name: "index_slipvector_surveys_on_surveyors_guild_id"
   end
 
   create_table "space_agreements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -381,8 +394,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_004148) do
   add_foreign_key "marketplace_vendor_representatives", "people"
   add_foreign_key "memberships", "invitations"
   add_foreign_key "rooms", "media", column: "hero_image_id"
+  add_foreign_key "slipvector_crewmates", "slipvector_surveyors", column: "surveyor_id"
+  add_foreign_key "slipvector_crewmates", "slipvector_surveys", column: "survey_id"
   add_foreign_key "slipvector_star_systems", "furnitures", column: "surveyors_guild_id"
   add_foreign_key "slipvector_surveyors", "furnitures", column: "surveyors_guild_id"
+  add_foreign_key "slipvector_surveys", "furnitures", column: "surveyors_guild_id"
   add_foreign_key "slipvector_surveys", "slipvector_star_systems", column: "star_system_id"
   add_foreign_key "space_agreements", "spaces"
   add_foreign_key "spaces", "rooms", column: "entrance_id"

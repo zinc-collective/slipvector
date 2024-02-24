@@ -1,8 +1,10 @@
 class Slipvector
   class SurveysController < Controller
-    expose :star_system, scope: -> { policy_scope(StarSystem) }, model: StarSystem
-    expose :surveys, -> { policy_scope(star_system.surveys) }
-    expose :survey, scope: -> { surveys }, model: Survey
+    expose :surveyor, scope: -> { policy_scope(Surveyor) }, model: Surveyor
+    expose :surveys, -> { policy_scope(surveyor.surveys) }
+
+    expose :survey, scope: -> { surveys }, model: Survey,
+      build: ->(params, scope) { scope.new(params.merge(surveyors: [surveyor])) }
 
     def new
       authorize(survey)
