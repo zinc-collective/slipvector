@@ -1,0 +1,24 @@
+<%= render CardComponent.new do |card| %>
+  <h3>Captain Darvin</h3>
+  <p>Welcome, <%= crewmate.surveyor.name %>!</p>
+
+  <p>It seems like you're interested in joining us on our survey of
+     <%= survey.star_system.name %>!</p>
+
+  <p>I know, quite a mouthful! Don't worry, if we find anything interesting
+     we'll give it an easier name!</p>
+
+  <p>I'm Captain Darvin, and my job is to make sure we arrive and return
+    safely.</p>
+
+  <p>Your job is to collect observations.</p>
+
+  <p>Ready?</p>
+
+  <%- card.with_footer(variant: :action_bar) do %>
+    <a href="<%= href_to(surveyors_guild) %>"
+      class="button --secondary w-1/2">Wait a sec, I'm not ready...</a>
+
+    <%= button_to "Let's Go!", survey.location(child: :crewmates), form_class: "w-1/2", class: "w-full --primary" %>
+  <%- end %>
+<%- end %>

@@ -26,14 +26,7 @@
     <%- end %>
   </div>
 
-  <%== pagy_nav(@pagy, nav_extra: 'flex justify-between') %>
-
-  <%- card.with_footer(variant: :action_bar) do %>
-    <%- if star_system.active_surveys.present? %>
-      <%- active_survey = star_system.active_surveys.first %>
-      <%= link_to "Resume Survey #{active_survey.id}", star_system.active_surveys.first.location, class: "w-full button" %>
-    <%- else %>
-      <%= button_to("Begin Survey", star_system.location(child: :surveys), params: { survey: { status: :active } }, form_class: "w-full", class: "w-full") %>
-    <%- end %>
+  <%- if @pagy.pages > 1 %>
+    <%== pagy_nav(@pagy, nav_extra: 'flex justify-between') %>
   <%- end %>
 <%- end %>

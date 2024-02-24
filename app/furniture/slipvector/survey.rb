@@ -19,6 +19,8 @@ class Slipvector
       complete: "complete"
     }
 
+    scope :preparing_or_active, -> { preparing.or(active) }
+
     after_commit :update_star_system
 
     def update_star_system
@@ -42,7 +44,5 @@ class Slipvector
         DataLevel.new(elmo:, xp: rng.rand(3).times.sum { rng.rand(20) })
       end
     end
-
-
   end
 end

@@ -1,7 +1,46 @@
 <%- if current_surveyor.present?%>
   <%= render current_surveyor %>
   <div>
+    <h3>Surveys in Progress</h3>
+    <%- if current_surveyor.surveys.preparing_or_active.present? %>
+      <%- current_surveyor.surveys.preparing_or_active.includes(:star_system).each do |survey| %>
+        <%= render CardComponent.new do |card| %>
+          <%- card.with_header do %>
+            <h4><%= survey.id%></h4>
+          <%- end %>
+          <p>Traveling to <%= survey.star_system.name %></p>
+          <%- card.with_footer(variant: :action_bar) do %>
+            <a
+              class="button w-full"
+              href="<%= href_to(survey) %>">
+              Return to Survey
+            </a>
+          <%- end %>
+        <%- end %>
+      <%- end %>
+    <%- else %>
+      <h3>Surveys Seeking Crew</h3>
+      <%- surveyors_guild.surveys_seeking_crew.includes(:star_system).each do |survey| %>
+        <%= render CardComponent.new do |card| %>
+          <%- card.with_header do %>
+            <h4><%= survey.id%></h4>
+          <%- end %>
+            <p>Traveling to <%= survey.star_system.name %></p>
+
+          <%- card.with_footer(variant: :action_bar) do %>
+            <a
+              class="button w-full --primary"
+              href="<%= href_to(survey, action: :new, child: :crewmate) %>">
+              Inquire
+            </a>
+          <%- end %>
+        <%- end %>
+      <%- end %>
+    <%- end %>
+  </div>
+  <div>
     <h3>Star Systems</h3>
+
     <%= render surveyors_guild.star_systems %>
   </div>
 <%- else %>
@@ -20,7 +59,7 @@
       -->
 
       <a href="<%= href_to(surveyors_guild, action: :new, child: :surveyor) %>"
-        class="button w-full">I'd like to join the guild!</a>
+        class="button --primary w-full">I'd like to join the guild!</a>
     <%- end %>
   <%- end %>
 <%- end %>

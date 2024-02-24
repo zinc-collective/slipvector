@@ -1,7 +1,14 @@
 class Slipvector
   class SurveysController < Controller
     expose :surveyor, scope: -> { policy_scope(Surveyor) }, model: Surveyor
-    expose :surveys, -> { policy_scope(surveyor.surveys) }
+    expose :surveys, (lambda do
+      surveys = if params[:surveyor_id].present?
+        surveyor.surveys
+      else
+        surveyors_guild.surveys
+      end
+      policy_scope(surveys)
+    end)
 
     expose :survey, scope: -> { surveys }, model: Survey,
       build: ->(params, scope) { scope.new(params.merge(surveyors: [surveyor])) }
@@ -22,7 +29,11 @@ class Slipvector
     def update
       authorize(survey)
       survey.update(survey_params)
-      redirect_to(survey.star_system.location)
+      if survey.complete?
+        redirect_to(surveyors_guild.location)
+      else
+        redirect_to(survey.location)
+      end
     end
 
     def show

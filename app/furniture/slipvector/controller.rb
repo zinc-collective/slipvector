@@ -15,9 +15,10 @@ class Slipvector
 
     helper_method def current_surveyor
       @current_surveyor ||= if session[:slipvector_current_surveyor_id]
-        @current_surveyor =
-          Surveyor.find(session[:slipvector_current_surveyor_id])
+        Surveyor.find_by(id: session[:slipvector_current_surveyor_id])
       end
+
+
     end
 
     def current_surveyor= surveyor
